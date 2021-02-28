@@ -109,7 +109,8 @@ function UserListPage() {
     UserApiService.fetchUserByID(data)
     .then(res => {
       userdata변경(res.data);
-      
+      이메일변경(res.data.email)
+      홈닉네임변경(res.data.nickname)
       })
       .catch(err => {
           console.log('***** Community fetchUserByID error:', err);
@@ -119,6 +120,7 @@ function UserListPage() {
     console.log(이메일);
     console.log(홈닉네임);
     console.log(userdata.userid);
+
 
   }
 
@@ -164,12 +166,12 @@ function UserListPage() {
                 <Grid.Row>
                 <Grid.Col xl={6} lg={6} md={6} sm={6} xs={6}>
                 <Form.Group label="이메일"  >
-                  <Form.Input value = {userdata.email} onChange={(e) => 이메일변경(e.target.value)} />
+                  <Form.Input  value = {이메일} onChange={(e) => 이메일변경(e.target.value)} />
                 </Form.Group>
                 </Grid.Col>
                 <Grid.Col xl={6} lg={6} md={6} sm={6} xs={6}>
                 <Form.Group label="홈닉네임" className="mb-0">
-                  <Form.Input className = "homenick" onChange={(e) => 홈닉네임변경(e.target.value)}/>
+                  <Form.Input value = {홈닉네임} onChange={(e) => 홈닉네임변경(e.target.value)}/>
                 </Form.Group>
                 </Grid.Col>
                 </Grid.Row>
