@@ -16,6 +16,8 @@ import {
 } from "./pages";
 
 import UserListPage from "./ants/UserListPage.react";
+import BoardListPage from "./ants/BoardListPage.react";
+import CommentListPage from "./ants/CommentListPage.react";
 
 import HomePage from "./HomePage.react";
 import FormElementsPage from "./FormElementsPage.react";
@@ -60,6 +62,8 @@ function App(props: Props): React.Node {
           <Route exact path="/register" component={RegisterPage} />
           <Route exact path="/store" component={StoreCardsPage} />
           <Route exact path="/userlist" component={UserListPage} />
+          <Route exact path="/boardlist" component={BoardListPage} />
+          <Route exact path="/commentlist" component={CommentListPage} />
           <Route component={Error404} />
         </Switch>
       </Router>

@@ -55,9 +55,9 @@ class BoardApiService {
     //     return axios.post(Board_API_BASE_URL, user);
     // }
     
-    // deleteUser(userID) {
-    //     return axios.delete(Board_API_BASE_URL + '/' + userID);
-    // }
+    deleteBoard(boardID) {
+        return axios.delete(Board_API_BASE_URL + '/' + boardID);
+    }
 
 
     // editUser(user) {

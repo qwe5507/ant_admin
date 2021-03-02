@@ -66,6 +66,22 @@ const navBarItems: Array<navItem> = [
     ],
   },
   {
+    value: "Board",
+    icon: "twitter",
+    subItems: [
+      {
+        value: "Board List",
+        to: "/boardlist",
+        LinkComponent: withRouter(NavLink),
+      },
+      {
+        value: "Comment List",
+        to: "/Commentlist",
+        LinkComponent: withRouter(NavLink),
+      },
+    ],
+  },
+  {
     value: "Interface",
     icon: "box",
     subItems: [

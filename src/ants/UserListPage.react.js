@@ -113,15 +113,30 @@ function UserListPage() {
       홈닉네임변경(res.data.nickname)
       })
       .catch(err => {
-          console.log('***** Community fetchUserByID error:', err);
+          console.log('***** Admin fetchUserByID error:', err);
       }); 
   }
   function setupdate(){
-    console.log(이메일);
-    console.log(홈닉네임);
-    console.log(userdata.userid);
-
-
+    var result = window.confirm("수정하시겠습니까?");
+    if(result){
+        var temp = {...userdata}
+        console.log(temp);
+        temp.email = 이메일
+        temp.nickname = 홈닉네임
+        
+        UserApiService.editUser(temp)
+        .then(res => {
+          console.log(res.data)
+          })
+          .catch(err => {
+              console.log('***** Admin editUser error:', err);
+          }); 
+        setShow(false); 
+        $('#example').DataTable().destroy();
+        userlistget();
+    }else{
+      console.log("수정취소")
+    }
   }
 
   return (
