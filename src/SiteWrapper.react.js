@@ -79,6 +79,16 @@ const navBarItems: Array<navItem> = [
         to: "/Commentlist",
         LinkComponent: withRouter(NavLink),
       },
+      {
+        value: "Api test2",
+        to: "/apitest2",
+        LinkComponent: withRouter(NavLink),
+      },
+      {
+        value: "Api test33",
+        to: "/apitest3",
+        LinkComponent: withRouter(NavLink),
+      }
     ],
   },
   {
