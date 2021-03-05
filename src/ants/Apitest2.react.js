@@ -56,7 +56,7 @@ function Apitest2() {
              viewId: VIEW_ID,
              dateRanges: [
                {
-                 startDate: '10daysAgo',
+                 startDate: '3daysAgo',
                  endDate: 'today'
                }
              ],

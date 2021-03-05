@@ -109,15 +109,26 @@ const navBarItems: Array<navItem> = [
     ],
   },
   {
-    value: "Components",
-    icon: "calendar",
+    value: "crawling",
+    icon: "box",
     subItems: [
-      { value: "Maps", to: "/maps", LinkComponent: withRouter(NavLink) },
-      { value: "Icons", to: "/icons", LinkComponent: withRouter(NavLink) },
-      { value: "Store", to: "/store", LinkComponent: withRouter(NavLink) },
-      { value: "Blog", to: "/blog", LinkComponent: withRouter(NavLink) },
+      {
+        value: "crawling",
+        to: "/crawling",
+        LinkComponent: withRouter(NavLink),
+      },
     ],
   },
+  // {
+  //   value: "Components",
+  //   icon: "calendar",
+  //   subItems: [
+  //     { value: "Maps", to: "/maps", LinkComponent: withRouter(NavLink) },
+  //     { value: "Icons", to: "/icons", LinkComponent: withRouter(NavLink) },
+  //     { value: "Store", to: "/store", LinkComponent: withRouter(NavLink) },
+  //     { value: "Blog", to: "/blog", LinkComponent: withRouter(NavLink) },
+  //   ],
+  // },
   {
     value: "Pages",
     icon: "file",

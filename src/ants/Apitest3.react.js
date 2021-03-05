@@ -42,7 +42,7 @@ function Apitest3() {
     setIsSignedIn(signedIn);
     if (!signedIn) {
       renderButton();
-      console.log("개씨발제발좀되라22222");
+      console.log("init성공(3)");
     }
   };
 
@@ -50,7 +50,7 @@ function Apitest3() {
     checkSignedIn()
       .then((signedIn) => {
         updateSignin(signedIn);
-        console.log("개씨발제발좀되라");
+        console.log("init성공(2)");
       })
       .catch((error) => {
         console.error(error);

@@ -1,4 +1,5 @@
-import * as React from "react";
+// import * as React from "react";
+import React, { useState, useEffect } from "react"
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import {
   ForgotPasswordPage,
@@ -20,6 +21,7 @@ import BoardListPage from "./ants/BoardListPage.react";
 import CommentListPage from "./ants/CommentListPage.react";
 import Apitest2 from "./ants/Apitest2.react";
 import Apitest3 from "./ants/Apitest3.react";
+import CrawlingPage from "./ants/crawling.react";
 
 import HomePage from "./HomePage.react";
 import FormElementsPage from "./FormElementsPage.react";
@@ -34,9 +36,13 @@ import BlogPage from "./components/BlogPage.react";
 
 import "tabler-react/dist/Tabler.css";
 
+import {renderButton,checkSignedIn} from'./utils'
+
 type Props = {||};
 
 function App(props: Props): React.Node {
+
+
   return (
     <React.StrictMode>
       <Router>
@@ -68,6 +74,7 @@ function App(props: Props): React.Node {
           <Route exact path="/commentlist" component={CommentListPage} />
           <Route exact path="/Apitest2" component={Apitest2} />
           <Route exact path="/apitest3" component={Apitest3} />
+          <Route exact path="/crawling" component={CrawlingPage} />
           <Route component={Error404} />
         </Switch>
       </Router>

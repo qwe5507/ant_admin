@@ -1,7 +1,6 @@
 // @flow
-
-import * as React from "react";
-
+// import * as React from "react";
+import React, { useState, useEffect } from "react"
 import {
   Page,
   Avatar,
@@ -24,8 +23,88 @@ import {
 import C3Chart from "react-c3js";
 
 import SiteWrapper from "./SiteWrapper.react";
+import {renderButton,checkSignedIn} from'./utils'
 
 function Home() {
+
+
+  
+  const [isSignedIn, setIsSignedIn] = useState(false);
+
+  const updateSignin = (signedIn) => { //(3)
+    setIsSignedIn(signedIn);
+    if (!signedIn) {
+      renderButton();
+      console.log("init성공(3)");
+
+    }
+  };
+
+  const init = () => { //(2)
+    checkSignedIn()
+      .then((signedIn) => {
+        updateSignin(signedIn);
+        console.log("init성공(2)");
+        queryReports();
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+
+  useEffect(() => {
+    window.gapi.load("auth2", init); //(1)
+  },[]);
+  
+// ================================================
+var [gaSession,gaSession변경] = useState();
+var [gaSessionago,gaSessionago변경] = useState();
+  // Replace with your view ID.
+  var VIEW_ID = '238527580';
+
+  // Query the API and print the results to the page.
+  function queryReports() {
+    window.gapi.client.request({
+      path: '/v4/reports:batchGet',
+     //  path: '/v4/userActivity:search',
+      root: 'https://analyticsreporting.googleapis.com/',
+      method: 'POST',
+      body: {
+        reportRequests: [
+          {
+            viewId: VIEW_ID,
+            dateRanges: [
+              {
+                startDate: '2daysAgo',
+                endDate: 'yesterday'
+              },
+              {
+                startDate: 'yesterday',
+                endDate: 'today'
+              }
+            ],
+            metrics: [
+              {
+                expression: 'ga:sessions'
+              }
+             //  ,
+             //  {
+             //   expression: 'ga:users'
+             //  }
+            ]
+          }
+        ]
+      }
+    }).then(displayResults, console.error.bind(console));
+  }
+
+  function displayResults(response) {
+    var formattedJson = JSON.stringify(response.result, null, 2);
+    console.log(formattedJson);
+    gaSessionago변경(response.result['reports'][0]['data']['totals'][0]['values'][0]);
+    gaSession변경(response.result['reports'][0]['data']['totals'][1]['values'][0]);
+  }
+  
   return (
     <SiteWrapper>
       <Page.Content title="Dashboard">
@@ -42,7 +121,7 @@ function Home() {
             />
           </Grid.Col>
           <Grid.Col width={6} sm={4} lg={2}>
-            <StatsCard layout={1} movement={9} total="7" label="New Replies" />
+            <StatsCard layout={1} movement={Math.floor(((gaSession-gaSessionago)/gaSessionago)*100)} total={gaSession} label="세션수" />
           </Grid.Col>
           <Grid.Col width={6} sm={4} lg={2}>
             <StatsCard
