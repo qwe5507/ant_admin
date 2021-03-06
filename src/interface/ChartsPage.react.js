@@ -123,7 +123,7 @@ function ChartsPage(): React.Node {
       },
     },
     {
-      title: "Lorem ipsum",
+      title: "Lorem ipsumsss",
       data: {
         columns: [
           // each columns data
@@ -308,7 +308,7 @@ function ChartsPage(): React.Node {
       },
     },
     {
-      title: "Lorem ipsum",
+      title: "Lorem ipsumss",
       data: {
         columns: [
           // each columns data
@@ -390,7 +390,7 @@ function ChartsPage(): React.Node {
       },
     },
     {
-      title: "Lorem ipsum",
+      title: "Lorem ipsumssbar",
       data: {
         columns: [
           // each columns data
@@ -417,7 +417,7 @@ function ChartsPage(): React.Node {
       },
     },
     {
-      title: "Lorem ipsum",
+      title: "Lorem ipsumssss",
       data: {
         columns: [
           // each columns data

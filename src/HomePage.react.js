@@ -23,13 +23,16 @@ import {
 import C3Chart from "react-c3js";
 
 import SiteWrapper from "./SiteWrapper.react";
-import {renderButton,checkSignedIn} from'./utils'
+import {renderButton,checkSignedIn} from'./utils';
+import UserApiService from './api/UserApi';
 
 function Home() {
 
 
   
   const [isSignedIn, setIsSignedIn] = useState(false);
+  const [totalUserCount,totalUserCount변경] = useState(0);
+  const [subUserCount,subUserCount변경] = useState(0);
 
   const updateSignin = (signedIn) => { //(3)
     setIsSignedIn(signedIn);
@@ -54,11 +57,37 @@ function Home() {
 
   useEffect(() => {
     window.gapi.load("auth2", init); //(1)
+    //==============
+    UserApiService.fetchUsersTotalCount()
+    .then(res => {
+      console.log(res.data)
+      totalUserCount변경(res.data);
+      })
+    .catch(err => {
+      console.log('***** Admin fetchUsersCount error:', err);
+    }); 
+    //==============
+      UserApiService.fetchUsersSubCount()
+      .then(res => {
+        console.log(res.data)
+        subUserCount변경(res.data);
+        })
+      .catch(err => {
+        console.log('***** Admin fetchUsersCount error:', err);
+      }); 
+      //==============
   },[]);
+
   
 // ================================================
-var [gaSession,gaSession변경] = useState();
-var [gaSessionago,gaSessionago변경] = useState();
+var [gaSession,gaSession변경] = useState(0);
+var [gaSessionago,gaSessionago변경] = useState(0);
+var [gaAvgSessionDuration,gaAvgSessionDuration변경] = useState(0);
+var [gaAvgSessionDurationAgo,gaAvgSessionDurationAgo변경] = useState(0);
+var [chartdata,chartdata변경] = useState([]);
+var [AvgTimeOnPageData,AvgTimeOnPageData변경] = useState([]);
+var [AvgTimeOnPageName,AvgTimeOnPageName변경] = useState();
+
   // Replace with your view ID.
   var VIEW_ID = '238527580';
 
@@ -77,7 +106,8 @@ var [gaSessionago,gaSessionago변경] = useState();
               {
                 startDate: '2daysAgo',
                 endDate: 'yesterday'
-              },
+              }
+              ,
               {
                 startDate: 'yesterday',
                 endDate: 'today'
@@ -85,39 +115,69 @@ var [gaSessionago,gaSessionago변경] = useState();
             ],
             metrics: [
               {
-                expression: 'ga:sessions'
+                expression: 'ga:avgSessionDuration'
               }
-             //  ,
-             //  {
-             //   expression: 'ga:users'
-             //  }
-            ]
+              ,
+              // { 나중에 구할떄 리퀘스트를 따로 날려야 할듯. 
+              //  expression: 'ga:1dayUsers' 
+              // },
+              {
+                expression: 'ga:sessions'
+               },
+               {
+                expression: 'ga:avgTimeOnPage'
+               }
+            ],
+            dimensions: [
+              {
+                name: "ga:week"
+              },
+              {
+                name: "ga:pagePath",
+              }
+            ],
           }
         ]
       }
     }).then(displayResults, console.error.bind(console));
   }
-
+  let AvgTimeOnPageNameTemp = [];
   function displayResults(response) {
     var formattedJson = JSON.stringify(response.result, null, 2);
+    gaSessionago변경(response.result['reports'][0]['data']['totals'][0]['values'][1]);
+    gaSession변경(response.result['reports'][0]['data']['totals'][1]['values'][1]);
+    gaAvgSessionDurationAgo변경(response.result['reports'][0]['data']['totals'][0]['values'][0]);
+    gaAvgSessionDuration변경(response.result['reports'][0]['data']['totals'][1]['values'][0]);
+
     console.log(formattedJson);
-    gaSessionago변경(response.result['reports'][0]['data']['totals'][0]['values'][0]);
-    gaSession변경(response.result['reports'][0]['data']['totals'][1]['values'][0]);
+    console.log(response.result['reports'][0]['data']['rows']);
+    let temp = response.result['reports'][0]['data']['rows'];
+    let AvgTimeOnPageDataTemp = [];
+    
+    for(var i = 0; i <temp.length ; i++){
+      AvgTimeOnPageNameTemp.push(temp[i]['dimensions'][1]);
+      AvgTimeOnPageDataTemp.push(temp[i]['metrics'][0]['values'][2]);
+    }
+
+    AvgTimeOnPageData변경(AvgTimeOnPageDataTemp);
+    AvgTimeOnPageName변경(AvgTimeOnPageNameTemp);
+      
   }
-  
+//==============================================================================
+
   return (
     <SiteWrapper>
       <Page.Content title="Dashboard">
         <Grid.Row cards={true}>
           <Grid.Col width={6} sm={4} lg={2}>
-            <StatsCard layout={1} movement={6} total="43" label="New Tickets" />
+            <StatsCard layout={1} movement={0} total={totalUserCount} label="전체 회원수" />
           </Grid.Col>
           <Grid.Col width={6} sm={4} lg={2}>
             <StatsCard
               layout={1}
-              movement={-3}
-              total="17"
-              label="Closed Today"
+              movement={0}
+              total={subUserCount}
+              label="구독 회원수"
             />
           </Grid.Col>
           <Grid.Col width={6} sm={4} lg={2}>
@@ -126,9 +186,9 @@ var [gaSessionago,gaSessionago변경] = useState();
           <Grid.Col width={6} sm={4} lg={2}>
             <StatsCard
               layout={1}
-              movement={3}
-              total="27.3k"
-              label="Followers"
+              movement={Math.floor(((gaAvgSessionDuration-gaAvgSessionDurationAgo)/gaAvgSessionDurationAgo)*100)}
+              total={Math.floor(gaAvgSessionDuration)}
+              label="세션시간"
             />
           </Grid.Col>
           <Grid.Col width={6} sm={4} lg={2}>
@@ -145,51 +205,28 @@ var [gaSessionago,gaSessionago변경] = useState();
           <Grid.Col lg={6}>
             <Card>
               <Card.Header>
-                <Card.Title>Development Activity</Card.Title>
+                <Card.Title>AvgTimeOnPage</Card.Title>
               </Card.Header>
+              { AvgTimeOnPageName ?
               <C3Chart
                 style={{ height: "10rem" }}
                 data={{
                   columns: [
                     // each columns data
                     [
-                      "data1",
-                      0,
-                      5,
-                      1,
-                      2,
-                      7,
-                      5,
-                      6,
-                      8,
-                      24,
-                      7,
-                      12,
-                      5,
-                      6,
-                      3,
-                      2,
-                      2,
-                      6,
-                      30,
-                      10,
-                      10,
-                      15,
-                      14,
-                      47,
-                      65,
-                      55,
-                    ],
+                      "Sec",
+                      ...AvgTimeOnPageData
+                    ]
                   ],
-                  type: "area", // default type of chart
-                  groups: [["data1", "data2", "data3"]],
+                  type: "bar", // default type of chart
+                  groups: [["Sec"]],
                   colors: {
-                    data1: colors["blue"],
+                    Sec: colors["pink"],
                   },
-                  names: {
-                    // name of each serie
-                    data1: "Purchases",
-                  },
+                  // names: {
+                  //   // name of each serie
+                  //   data1: "Purchases",
+                  // },
                 }}
                 axis={{
                   y: {
@@ -202,11 +239,9 @@ var [gaSessionago,gaSessionago변경] = useState();
                     },
                   },
                   x: {
-                    padding: {
-                      left: 0,
-                      right: 0,
-                    },
-                    show: false,
+                    type : "category",
+                        // name of each category
+                        categories : AvgTimeOnPageName
                   },
                 }}
                 legend={{
@@ -235,6 +270,8 @@ var [gaSessionago,gaSessionago변경] = useState();
                   show: false,
                 }}
               />
+            : null
+            }
               <Table
                 cards={true}
                 striped={true}
@@ -331,7 +368,7 @@ var [gaSessionago,gaSessionago변경] = useState();
               <Grid.Col sm={6}>
                 <Card>
                   <Card.Header>
-                    <Card.Title>Chart title</Card.Title>
+                    <Card.Title>이런이런</Card.Title>
                   </Card.Header>
                   <Card.Body>
                     <C3Chart
@@ -339,20 +376,27 @@ var [gaSessionago,gaSessionago변경] = useState();
                       data={{
                         columns: [
                           // each columns data
-                          ["data1", 63],
-                          ["data2", 37],
+                          ["data1", 1,2,3,4,5,6]
                         ],
-                        type: "donut", // default type of chart
+                        type: "bar", // default type of chart
                         colors: {
-                          data1: colors["green"],
-                          data2: colors["green-light"],
+                          data1: colors["pink"],
+                          // data2: colors["pink"],
                         },
                         names: {
                           // name of each serie
-                          data1: "Maximum",
-                          data2: "Minimum",
+                          data1: "pageOntime",
+                          // data2: "Minimum",
                         },
                       }}
+                      axis = {{x: {
+                        type : "category",
+                        // name of each category
+                        categories : ["Jan", "Feb", "Mar", "Apr", "May", "Jun"]
+                      },
+                      }
+                      }
+
                       legend={{
                         show: false, //hide legend
                       }}

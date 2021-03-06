@@ -7,6 +7,12 @@ class UserApiService {
     fetchUsers() {
         return axios.get(USER_API_BASE_URL);
     }
+    fetchUsersTotalCount() {
+        return axios.get(USER_API_BASE_URL + '/totalcount');
+    }
+    fetchUsersSubCount() {
+        return axios.get(USER_API_BASE_URL + '/subcount');
+    }
 
     fetchUserByID(userID) {
         return axios.get(USER_API_BASE_URL + '/' + userID);
