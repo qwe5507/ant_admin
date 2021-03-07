@@ -64,6 +64,7 @@ function CrawlingPage() {
     }, []);
 
     function usdkrwGet(){
+      console.log("usdkrw")
       IndApiService.chartIndi(1)
       .then(res => {
         console.log(res.data)
@@ -263,6 +264,20 @@ function CrawlingPage() {
       }); 
     }
 
+    function receivedUsdkrw() { 
+      console.log("테스트")
+      IndApiService.requestUsdkrw()
+      .then(res => {
+        usdkrwGet();
+        alert("작업이 종료되었습니다")
+      })
+      .catch(err => {
+        console.log(err);
+        alert("크롤링 시 오류가 발생했습니다.")
+      }); 
+      
+    }
+
   function bitcoinGet(){
     IndApiService.indicators2("bitcoin", 1)
     .then(res => {
@@ -284,13 +299,19 @@ function CrawlingPage() {
   }
 
   return (
+    
 <SiteWrapper>
-<Page.Content title="Cralling">
+  
+    <div align="center" style={{padding:"10px"}}>크롤링 작업이 완료되면 "작업이 완료되었습니다" 라는 메세지가 출력됩니다. <br/>
+   메세지 출력 시까지 작업을 중단하지 말고 기다려 주세요.</div> 
+<Page.Content title="Cralling" substring="gkgk">
+
         <Grid.Row>
           <Grid.Col md={12} xl={12}>
            
           <table id="example" className="display">
             <thead>
+            
                 <tr align = "center">
                     <th >최신일자</th>
                     <th>지표이름</th>
@@ -298,13 +319,14 @@ function CrawlingPage() {
                 </tr>
             </thead>
             <tbody>
+            
               {
                   usdkrw.map(function(data){
                    return(
                   <tr align = "center">
                       <td>{data['dates'].substring(0,10)}</td>
                       <td>원/달러</td>
-                      <td><Button color="red">Cralling Start</Button> </td>
+                      <td><Button color="red"  onClick={ receivedUsdkrw }>Cralling Start</Button> </td>
                   </tr>
                    )
                   })   

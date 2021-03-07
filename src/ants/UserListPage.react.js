@@ -88,7 +88,7 @@ function UserListPage() {
       console.log(res.data)
       console.log("fetchUsers 성공")                
       userlist변경(res.data);
-      
+     
       setTimeout(()=>{                        
         $('#example').DataTable(
             {

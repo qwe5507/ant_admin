@@ -10,6 +10,11 @@ const USER_API_BASE_URL_INDI1 = "http://localhost:8000/indicator/indi1";
 const USER_API_BASE_URL_INDI2 = "http://localhost:8000/indicator/indi2";
 const USER_API_BASE_URL_CORRABS = "http://localhost:8000/indicator/corrAbs";
 
+const TEST_API_BASE_URL = "http://localhost:7000/api";
+
+
+
+
 class IndApiService {
 
     //국외 환율 정보 리스트
@@ -56,6 +61,10 @@ class IndApiService {
     return axios.get(USER_API_BASE_URL_INDI2  + '/' + tableName + '/' + num);
    }
  
+   //usdkrw 크롤링
+   requestUsdkrw() {
+    return axios.get(TEST_API_BASE_URL + "/requestUsdkrw");
+    }
 }
 
 export default new IndApiService();
