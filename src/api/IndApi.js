@@ -63,8 +63,65 @@ class IndApiService {
  
    //usdkrw 크롤링
    requestUsdkrw() {
+    //alert('원달러크롤링')
     return axios.get(TEST_API_BASE_URL + "/requestUsdkrw");
     }
+
+    //국제 금 크롤링
+   requestGoldfor() {
+    return axios.get(TEST_API_BASE_URL + "/requestGoldfor");
+    }
+
+    //wti 크롤링
+   requestWTI() {
+    return axios.get(TEST_API_BASE_URL + "/requestWTI");
+    }
+
+    //bond10 크롤링
+    requestBond10() {
+    return axios.get(TEST_API_BASE_URL + "/requestBond10");
+    }
+
+    //bond2 크롤링
+    requestBond2() {
+        return axios.get(TEST_API_BASE_URL + "/requestBond2");
+    }
+
+    //달러인덱스 크롤링
+    requestDolleridx() {
+        return axios.get(TEST_API_BASE_URL + "/requestDolleridx");
+    }
+
+    //유로달러 크롤링
+    requestEurusd() {
+        return axios.get(TEST_API_BASE_URL + "/requestEurusd");
+    }
+
+    //달러파운드 크롤링
+    requestUsdgdp() {
+        return axios.get(TEST_API_BASE_URL + "/requestUsdgdp");
+    }
+
+    //달러위안 크롤링
+    requestUsdcny() {
+        return axios.get(TEST_API_BASE_URL + "/requestUsdcny");
+    }
+
+    //달러엔 크롤링
+    requestUsdjpy() {
+        return axios.get(TEST_API_BASE_URL + "/requestUsdjpy");
+    }
+
+    //비트코인 크롤링
+    requestBitcoin() {
+        return axios.get(TEST_API_BASE_URL + "/requestBitcoin");
+    }
+
+    //상관관계 업데이트
+    requestCorr() {
+        return axios.get(TEST_API_BASE_URL + "/requestCorr");
+    }
+    
 }
 
 export default new IndApiService();

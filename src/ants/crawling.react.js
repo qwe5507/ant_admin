@@ -44,7 +44,7 @@ function CrawlingPage() {
   let [bond2,bond2byun] = useState([]);
   let [goldfor,goldforbyun] = useState([]);
   let [bitcoin,bitcoinbyun] = useState([]);
-  
+
   let indicator = {
     'name' : "",
   }
@@ -264,6 +264,26 @@ function CrawlingPage() {
       }); 
     }
 
+    function bitcoinGet(){
+      IndApiService.indicators2("bitcoin", 1)
+      .then(res => {
+        console.log(res.data)
+        bitcoinbyun(res.data)    
+         
+        setTimeout(()=>{                        
+          $('#example').DataTable(
+              {
+                "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
+                destroy: true
+              }
+            );
+          },100)
+        })
+      .catch(err => {
+        console.log(err);
+      }); 
+    }
+  
     function receivedUsdkrw() { 
       console.log("테스트")
       IndApiService.requestUsdkrw()
@@ -278,25 +298,169 @@ function CrawlingPage() {
       
     }
 
-  function bitcoinGet(){
-    IndApiService.indicators2("bitcoin", 1)
-    .then(res => {
-      console.log(res.data)
-      bitcoinbyun(res.data)    
-       
-      setTimeout(()=>{                        
-        $('#example').DataTable(
-            {
-              "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]],
-              destroy: true
-            }
-          );
-        },100)
+    function receivedGoldfor() { 
+      console.log("테스트")
+     
+      IndApiService.requestGoldfor()
+      .then(res => {
+        goldforGet();
+        alert("작업이 종료되었습니다")
       })
-    .catch(err => {
-      console.log(err);
-    }); 
-  }
+      .catch(err => {
+        console.log(err);
+        alert("크롤링 시 오류가 발생했습니다.")
+      }); 
+      
+    }
+
+    function receivedWTI() { 
+      console.log("테스트")
+     
+      IndApiService.requestWTI()
+      .then(res => {
+        wtiGet();
+        alert("작업이 종료되었습니다")
+      })
+      .catch(err => {
+        console.log(err);
+        alert("크롤링 시 오류가 발생했습니다.")
+      }); 
+      
+    }
+
+    function receivedBond10() { 
+      console.log("테스트")
+     
+      IndApiService.requestBond10()
+      .then(res => {
+        bond10Get();
+        alert("작업이 종료되었습니다")
+      })
+      .catch(err => {
+        console.log(err);
+        alert("크롤링 시 오류가 발생했습니다.")
+      }); 
+      
+    }
+
+    function receivedBond2() { 
+      console.log("테스트")
+     
+      IndApiService.requestBond2()
+      .then(res => {
+        bond2Get();
+        alert("작업이 종료되었습니다")
+      })
+      .catch(err => {
+        console.log(err);
+        alert("크롤링 시 오류가 발생했습니다.")
+      }); 
+      
+    }
+
+    function receivedDolleridx() { 
+      console.log("테스트")
+     
+      IndApiService.requestDolleridx()
+      .then(res => {
+        dolleridxGet();
+        alert("작업이 종료되었습니다")
+      })
+      .catch(err => {
+        console.log(err);
+        alert("크롤링 시 오류가 발생했습니다.")
+      }); 
+      
+    }
+
+    function receivedEurusd() { 
+      console.log("테스트")
+     
+      IndApiService.requestEurusd()
+      .then(res => {
+        eurusdGet();
+        alert("작업이 종료되었습니다")
+      })
+      .catch(err => {
+        console.log(err);
+        alert("크롤링 시 오류가 발생했습니다.")
+      }); 
+      
+    }
+    
+    function receivedUsdgdp() { 
+      console.log("테스트")
+     
+      IndApiService.requestUsdgdp()
+      .then(res => {
+        usdgbpGet();
+        alert("작업이 종료되었습니다")
+      })
+      .catch(err => {
+        console.log(err);
+        alert("크롤링 시 오류가 발생했습니다.")
+      }); 
+      
+    }
+
+    function receivedUsdcny() { 
+      console.log("테스트")
+     
+      IndApiService.requestUsdcny()
+      .then(res => {
+        usdcnyGet();
+        alert("작업이 종료되었습니다")
+      })
+      .catch(err => {
+        console.log(err);
+        alert("크롤링 시 오류가 발생했습니다.")
+      }); 
+      
+    }
+
+    function receivedUsdjpy() { 
+      console.log("테스트")
+     
+      IndApiService.requestUsdjpy()
+      .then(res => {
+        usdjpyGet();
+        alert("작업이 종료되었습니다")
+      })
+      .catch(err => {
+        console.log(err);
+        alert("크롤링 시 오류가 발생했습니다.")
+      }); 
+      
+    }
+
+    function receivedBitcoin() { 
+      console.log("테스트")
+     
+      IndApiService.requestBitcoin()
+      .then(res => {
+        bitcoinGet();
+        alert("작업이 종료되었습니다")
+      })
+      .catch(err => {
+        console.log(err);
+        alert("크롤링 시 오류가 발생했습니다.")
+      }); 
+      
+    }
+
+    function receivedCorr() { 
+      console.log("테스트")
+     
+      IndApiService.requestCorr()
+      .then(res => {
+        alert("작업이 종료되었습니다")
+      })
+      .catch(err => {
+        console.log(err);
+        alert("업데이트 시 오류가 발생했습니다.")
+      }); 
+      
+    }
 
   return (
     
@@ -326,7 +490,7 @@ function CrawlingPage() {
                   <tr align = "center">
                       <td>{data['dates'].substring(0,10)}</td>
                       <td>원/달러</td>
-                      <td><Button color="red"  onClick={ receivedUsdkrw }>Cralling Start</Button> </td>
+                      <td><Button color="red"  onClick={ receivedUsdkrw}>Cralling Start</Button> </td>
                   </tr>
                    )
                   })   
@@ -338,7 +502,7 @@ function CrawlingPage() {
                   <tr align = "center">
                       <td>{data['dates'].substring(0,10)}</td>
                       <td>달러/유로</td>
-                      <td><Button color="red">Cralling Start</Button> </td>
+                      <td><Button color="red" onClick={ receivedEurusd }>Cralling Start</Button> </td>
                   </tr>
                    )
                   })
@@ -350,7 +514,7 @@ function CrawlingPage() {
                   <tr align = "center">
                       <td>{data['dates'].substring(0,10)}</td>
                       <td>영국 파운드/달러</td>
-                      <td><Button color="red">Cralling Start</Button> </td>
+                      <td><Button color="red" onClick={ receivedUsdgdp }>Cralling Start</Button> </td>
                   </tr>
                    )
                   })
@@ -362,7 +526,7 @@ function CrawlingPage() {
                   <tr align = "center">
                       <td>{data['dates'].substring(0,10)}</td>
                       <td>일본 엔/달러</td>
-                      <td><Button color="red">Cralling Start</Button> </td>
+                      <td><Button color="red"  onClick={ receivedUsdjpy}>Cralling Start</Button> </td>
                   </tr>
                    )
                   })
@@ -373,7 +537,7 @@ function CrawlingPage() {
                   <tr align = "center">
                       <td>{data['dates'].substring(0,10)}</td>
                       <td>중국 위안/달러</td>
-                      <td><Button color="red">Cralling Start</Button> </td>
+                      <td><Button color="red" onClick={ receivedUsdcny }>Cralling Start</Button> </td>
                   </tr>
                    )
                   })
@@ -384,7 +548,7 @@ function CrawlingPage() {
                   <tr align = "center">
                       <td>{data['dates'].substring(0,10)}</td>
                       <td>달러인덱스</td>
-                      <td><Button color="red">Cralling Start</Button> </td>
+                      <td><Button color="red" onClick={ receivedDolleridx }>Cralling Start</Button> </td>
                   </tr>
                    )
                   })
@@ -396,7 +560,7 @@ function CrawlingPage() {
                   <tr align = "center">
                       <td>{data['dates'].substring(0,10)}</td>
                       <td>WTI</td>
-                      <td><Button color="red">Cralling Start</Button> </td>
+                      <td><Button color="red" onClick={receivedWTI}>Cralling Start</Button> </td>
                   </tr>
                      )
                     })
@@ -407,7 +571,7 @@ function CrawlingPage() {
                   <tr align = "center">
                       <td>{data['dates'].substring(0,10)}</td>
                       <td>국제 금</td>
-                      <td><Button color="red">Cralling Start</Button> </td>
+                      <td><Button color="red" onClick={ receivedGoldfor }>Cralling Start</Button> </td>
                   </tr>
                     )
                   })
@@ -418,7 +582,7 @@ function CrawlingPage() {
                   <tr align = "center">
                       <td>{data['dates'].substring(0,10)}</td>
                       <td>미 10년 채권수익률</td>
-                      <td><Button color="red">Cralling Start</Button> </td>
+                      <td><Button color="red" onClick={ receivedBond10 }>Cralling Start</Button> </td>
                   </tr>
                     )
                   })
@@ -429,7 +593,7 @@ function CrawlingPage() {
                   <tr align = "center">
                       <td>{data['dates'].substring(0,10)}</td>
                       <td>미 2년 채권수익률</td>
-                      <td><Button color="red">Cralling Start</Button> </td>
+                      <td><Button color="red" onClick={ receivedBond2 }>Cralling Start</Button> </td>
                   </tr>
                    )
                   })
@@ -441,13 +605,17 @@ function CrawlingPage() {
                    
                       <td>{data['dates'].substring(0,10)}</td>
                       <td>비트코인</td>
-                      <td><Button color="red">Cralling Start</Button> </td>
+                      <td><Button color="red" onClick={ receivedBitcoin }>Cralling Start</Button> </td>
                     
                   </tr>
                     )
                   })
               }
-             
+                <tr align = "center">
+                      <td> - </td>
+                      <td>상관관계 업데이트</td>
+                      <td><Button color="red" onClick={ receivedCorr }>Update</Button> </td>
+                  </tr>
             </tbody>
             <tfoot>
                 
