@@ -42,79 +42,57 @@ type navItem = {|
 
 const navBarItems: Array<navItem> = [
   {
-    value: "Home",
+    value: "홈",
     to: "/",
     icon: "home",
     LinkComponent: withRouter(NavLink),
     useExact: true,
   },
   {
-    value: "User",
+    value: "유저",
     icon: "users",
     subItems: [
       {
-        value: "User List",
+        value: "유저 관리",
         to: "/userlist",
-        LinkComponent: withRouter(NavLink),
-      },
-      { value: "Charts", to: "/charts", LinkComponent: withRouter(NavLink) },
-      {
-        value: "Pricing Cards",
-        to: "/pricing-cards",
-        LinkComponent: withRouter(NavLink),
-      },
-    ],
-  },
-  {
-    value: "Board",
-    icon: "twitter",
-    subItems: [
-      {
-        value: "Board List",
-        to: "/boardlist",
-        LinkComponent: withRouter(NavLink),
-      },
-      {
-        value: "Comment List",
-        to: "/Commentlist",
-        LinkComponent: withRouter(NavLink),
-      },
-      {
-        value: "Api test2",
-        to: "/apitest2",
-        LinkComponent: withRouter(NavLink),
-      },
-      {
-        value: "Api test33",
-        to: "/apitest3",
         LinkComponent: withRouter(NavLink),
       }
     ],
   },
   {
-    value: "Interface",
+    value: "커뮤니티",
+    icon: "twitter",
+    subItems: [
+      {
+        value: "게시판 관리",
+        to: "/boardlist",
+        LinkComponent: withRouter(NavLink),
+      },
+      {
+        value: "댓글 관리",
+        to: "/Commentlist",
+        LinkComponent: withRouter(NavLink),
+      }
+    ],
+  },
+  {
+    value: "크롤링",
     icon: "box",
     subItems: [
       {
-        value: "Cards Design",
-        to: "/cards",
-        LinkComponent: withRouter(NavLink),
-      },
-      { value: "Charts", to: "/charts", LinkComponent: withRouter(NavLink) },
-      {
-        value: "Pricing Cards",
-        to: "/pricing-cards",
+        value: "크롤링",
+        to: "/crawling",
         LinkComponent: withRouter(NavLink),
       },
     ],
   },
   {
-    value: "crawling",
-    icon: "box",
+    value: "신고접수",
+    icon: "moon",
     subItems: [
       {
-        value: "crawling",
-        to: "/crawling",
+        value: "신고 관리",
+        to: "/Declare",
         LinkComponent: withRouter(NavLink),
       },
     ],
@@ -130,9 +108,14 @@ const navBarItems: Array<navItem> = [
   //   ],
   // },
   {
-    value: "Pages",
+    value: "etc..",
     icon: "file",
     subItems: [
+      {
+        value: "Cards Design",
+        to: "/cards",
+        LinkComponent: withRouter(NavLink),
+      },
       { value: "Profile", to: "/profile", LinkComponent: withRouter(NavLink) },
       { value: "Login", to: "/login", LinkComponent: withRouter(NavLink) },
       {
@@ -158,27 +141,49 @@ const navBarItems: Array<navItem> = [
         LinkComponent: withRouter(NavLink),
       },
       { value: "RTL", to: "/rtl", LinkComponent: withRouter(NavLink) },
+      { value: "Charts", to: "/charts", LinkComponent: withRouter(NavLink) },
+      {
+        value: "Pricing Cards",
+        to: "/pricing-cards",
+        LinkComponent: withRouter(NavLink),
+      },
+      {
+        value: "Api test2",
+        to: "/apitest2",
+        LinkComponent: withRouter(NavLink),
+      },
+      {
+        value: "Api test33",
+        to: "/apitest3",
+        LinkComponent: withRouter(NavLink),
+      },
+      { value: "Charts", to: "/charts", LinkComponent: withRouter(NavLink) },
+      {
+        value: "Pricing Cards",
+        to: "/pricing-cards",
+        LinkComponent: withRouter(NavLink),
+      },
+      {
+        value: "Forms",
+        to: "/form-elements",
+        icon: "check-square",
+        LinkComponent: withRouter(NavLink),
+      },
+      {
+        value: "Gallery",
+        to: "/gallery",
+        icon: "image",
+        LinkComponent: withRouter(NavLink),
+      },
+      {
+        icon: "file-text",
+        value: "Documentation",
+        to:
+          process.env.NODE_ENV === "production"
+            ? "https://tabler.github.io/tabler-react/documentation"
+            : "/documentation",
+      }
     ],
-  },
-  {
-    value: "Forms",
-    to: "/form-elements",
-    icon: "check-square",
-    LinkComponent: withRouter(NavLink),
-  },
-  {
-    value: "Gallery",
-    to: "/gallery",
-    icon: "image",
-    LinkComponent: withRouter(NavLink),
-  },
-  {
-    icon: "file-text",
-    value: "Documentation",
-    to:
-      process.env.NODE_ENV === "production"
-        ? "https://tabler.github.io/tabler-react/documentation"
-        : "/documentation",
   },
 ];
 

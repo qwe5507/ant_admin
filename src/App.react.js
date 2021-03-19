@@ -19,6 +19,7 @@ import {
 import UserListPage from "./ants/UserListPage.react";
 import BoardListPage from "./ants/BoardListPage.react";
 import CommentListPage from "./ants/CommentListPage.react";
+import DeclarePage from "./ants/DeclarePage.react";
 import Apitest2 from "./ants/Apitest2.react";
 import Apitest3 from "./ants/Apitest3.react";
 import CrawlingPage from "./ants/crawling.react";
@@ -75,6 +76,7 @@ function App(props: Props): React.Node {
           <Route exact path="/Apitest2" component={Apitest2} />
           <Route exact path="/apitest3" component={Apitest3} />
           <Route exact path="/crawling" component={CrawlingPage} />
+          <Route exact path="/Declare" component={DeclarePage} />
           <Route component={Error404} />
         </Switch>
       </Router>
