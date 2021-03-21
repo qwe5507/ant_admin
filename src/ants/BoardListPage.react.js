@@ -13,6 +13,7 @@ import BoardApiService from "../api/BoardApi";
 import CommentApiService from "../api/CommentApi";
 import axios from 'axios';
 import './datatables.css';
+import ReactHtmlParser from 'react-html-parser';
 
 
 import {
@@ -344,7 +345,7 @@ function BoardListPage() {
                       // isCollapsible
                       // isClosable
                       statusColor="yellow"
-                      body={boarddata.board_content}
+                      body={ReactHtmlParser(boarddata.board_content)}
                     />
                   </Grid.Col>
                   <Grid.Row>
@@ -465,8 +466,8 @@ function BoardListPage() {
                       <td>{data['board_id']}</td>
                       <td>{data['nickname']}</td>
                       <td>{data['board_title']}</td>
-                      <td>{data['board_content']}</td>
-                      <td>{data['board_createdata'].substring(0,19)}</td>
+                      <td>{ReactHtmlParser(data['board_content'].trim())}</td>
+                      <td >{data['board_createdata'].substring(0,19)}</td>
                       <td>{data['board_modifydata'] === null ? "-": data['board_modifydata'].substring(0,19)}</td>
                       <td>{data['board_viewnum'] }</td>
                       <td> {data['board_LikeNum'] }</td>
